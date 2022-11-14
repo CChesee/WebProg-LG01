@@ -12,7 +12,7 @@
     {{-- My Style --}}
     <link rel="stylesheet" href="/css/style.css">
 
-    <title>BINUS Blog | {{ $title }}</title>
+    <title>BINUS Books | Home</title>
 </head>
 <body>
     @include('components.navbar')

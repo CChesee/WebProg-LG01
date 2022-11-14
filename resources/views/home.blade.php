@@ -1,52 +1,49 @@
 @extends('layouts.main')
 
 @section('container')
-    <h1 class="mb-3 text-center">BINUS Blog</h1>
+    <h1 class="mb-3 title text-center">BINUS Book</h1>`
 
-    @if ($posts->count())
+    @if (count($books))
         <div class="card mb-3">
             <div style="max-height: 350px; overflow:hidden;">
-                <img src={{ $posts[0]->image ? asset('storage/' . $posts[0]->image) : 'https://source.unsplash.com/1200x400?' . $posts[0]->category->name }} class="card-img-top" alt="...">
+                <img src="https://source.unsplash.com/1200x400?book" class="card-img-top" alt="...">
             </div>
             <div class="card-body text-center">
-                <h3 class="card-title"><a href="/posts/{{ $posts[0]->slug }}" class="text-decoration-none text-dark">{{ $posts[0]->title }}</a></h3>
+                <h3 class="card-title">{{ $books[0]->title }}</h3>
                 <p>
                     <small class="text-muted">
-                        By. <a href="/posts?author={{ $posts[0]->author->username }}" class="text-decoration-none">{{ $posts[0]->author->name }}</a> in <a href="/posts?category={{ $posts[0]->category->slug }}" class="text-decoration-none">{{ $posts[0]->category->name }}</a> {{ $posts[0]->created_at->diffForHumans() }}
+                        Donated by. {{ $books[0]->donator }}
                     </small>
                 </p>
-                <p class="card-text">{{ $posts[0]->excerpt }}</p>
-                <a href="/posts/{{ $posts[0]->slug }}" class="btn btn-primary text-decoration-none">Read more..</a>
+                <p class="card-text">{{ $books[0]->description }}</p>
             </div>
         </div>
 
 
         <div class="container">
             <div class="row">
-                @foreach ($posts->skip(1) as $post)
+                @foreach (array_slice($books, 1) as $book)
                     <div class="col-md-4 mb-3">
-                        <div class="card" style="width: 18rem;">
-                            <div class="position-absolute px-3 py-2" style="background-color: rgba(0, 0, 0, 0.7);"><a href="/posts?category={{ $post->category->slug }}" class="text-decoration-none text-white">{{ $post->category->name }}</a></div>
-                            <img src={{ $post->image ? asset('storage/' . $post->image) : 'https://source.unsplash.com/1200x400?' . $post->category->name }} class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h3 class="card-title">
-                                    <a href="/posts/{{ $post->slug }}" class="text-decoration-none text-dark">{{ $post->title }}</a>
-                                </h3>
-                                <p>
-                                    <small class="text-muted">
-                                        By. <a href="/posts?author={{ $post->author->username }}" class="text-decoration-none">{{ $post->author->name }}</a> {{ $post->created_at->diffForHumans() }}
-                                    </small>
-                                </p>
-                            <p class="card-text"> {{ $post->excerpt }} </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
+                      <div class="card">
+                        <div style="max-height: 350px; overflow:hidden;">
+                            <img src="https://source.unsplash.com/800x400?book" class="card-img-top" alt="...">
                         </div>
+                        <div class="card-body text-center">
+                            <h3 class="card-title">{{ $book->title }}</h3>
+                            <p>
+                                <small class="text-muted">
+                                    Donated by. {{ $book->donator }}
+                                </small>
+                            </p>
+                            <p class="card-text">{{ $book->description }}</p>
+                        </div>
+                      </div>
                     </div>
                 @endforeach
             </div>
         </div>
     @else
-        <p class="fs-4 text-center">No post found.</p>
+        <p class="fs-4 text-center">No books found.</p>
     @endif
 
 @endsection
